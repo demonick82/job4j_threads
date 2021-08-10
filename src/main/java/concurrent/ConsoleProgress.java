@@ -4,7 +4,7 @@ public class ConsoleProgress implements Runnable {
     @Override
     public void run() {
         int count = 0;
-        char[] process = new char[]{'-','/', '|', '\\'};
+        char[] process = new char[]{'-', '/', '|', '\\'};
 
         while (!Thread.currentThread().isInterrupted()) {
             System.out.print("\r Loading ... " + process[count++]);
