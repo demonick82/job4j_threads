@@ -1,9 +1,9 @@
-package sharedResources;
+package sharedresources;
 
 public class Cache {
     private static Cache cache;
 
-    public static synchronized Cache instOf() {
+    public static synchronized  Cache instOf() {
         if (cache == null) {
             cache = new Cache();
         }

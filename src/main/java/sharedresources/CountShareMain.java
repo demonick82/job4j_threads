@@ -1,4 +1,4 @@
-package sharedResources;
+package sharedresources;
 
 public class CountShareMain {
     public static void main(String[] args) throws InterruptedException {
