@@ -5,6 +5,7 @@ import net.jcip.annotations.ThreadSafe;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @ThreadSafe
 public class UserStorage {
@@ -14,7 +15,8 @@ public class UserStorage {
 
     public synchronized boolean add(User user) {
         boolean rsl = false;
-        if (!store.containsKey(user.getId())) {
+        User tmpUser = store.get(user.getId());
+        if (tmpUser == null) {
             store.put(user.getId(), user);
             rsl = true;
         }
@@ -24,7 +26,7 @@ public class UserStorage {
     public synchronized boolean update(User user) {
         boolean rsl = false;
         if (store.containsKey(user.getId())) {
-            store.replace(user.getId(), user);
+            store.put(user.getId(), user);
             rsl = true;
         }
         return rsl;
@@ -32,7 +34,7 @@ public class UserStorage {
 
     public synchronized boolean delete(User user) {
         boolean rsl = false;
-        if (store.containsKey(user.getId())) {
+        if (store.containsKey(user.getId()) && Objects.equals(store.get(user.getId()), user)) {
             store.remove(user.getId());
             rsl = true;
         }
@@ -43,7 +45,7 @@ public class UserStorage {
         boolean rsl = false;
         User fromAccount = store.get(fromId);
         User toAccount = store.get(told);
-        if (fromAccount != null || toAccount != null || fromAccount.getAmount() > toAccount.getAmount()) {
+        if (fromAccount != null && toAccount != null && fromAccount.getAmount() >= toAccount.getAmount()) {
             fromAccount.setAmount(fromAccount.getAmount() - amount);
             toAccount.setAmount(toAccount.getAmount() + amount);
             rsl = true;
