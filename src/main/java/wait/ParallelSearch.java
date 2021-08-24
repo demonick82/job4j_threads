@@ -1,7 +1,7 @@
 package wait;
 
 public class ParallelSearch {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(3);
         final Thread consumer = new Thread(
                 () -> {
