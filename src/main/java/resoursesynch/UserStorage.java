@@ -11,34 +11,18 @@ import java.util.Objects;
 public class UserStorage {
 
     @GuardedBy("this")
-    private Map<Integer, User> store = new HashMap<>();
+    private final Map<Integer, User> store = new HashMap<>();
 
     public synchronized boolean add(User user) {
-        boolean rsl = false;
-        User tmpUser = store.get(user.getId());
-        if (tmpUser == null) {
-            store.put(user.getId(), user);
-            rsl = true;
-        }
-        return rsl;
+        return store.putIfAbsent(user.getId(),user)!=null;
     }
 
     public synchronized boolean update(User user) {
-        boolean rsl = false;
-        if (store.containsKey(user.getId())) {
-            store.put(user.getId(), user);
-            rsl = true;
-        }
-        return rsl;
+        return store.replace(user.getAmount(),user)!=null;
     }
 
     public synchronized boolean delete(User user) {
-        boolean rsl = false;
-        if (store.containsKey(user.getId()) && Objects.equals(store.get(user.getId()), user)) {
-            store.remove(user.getId());
-            rsl = true;
-        }
-        return rsl;
+        return store.remove(user.getId(),user);
     }
 
     public synchronized boolean transfer(int fromId, int told, int amount) {
