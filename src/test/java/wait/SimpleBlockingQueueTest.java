@@ -19,23 +19,30 @@ public class SimpleBlockingQueueTest {
         Thread producer = new Thread(
                 () -> {
                     for (int i = 0; i <= 5; i++) {
-                        queue.offer(i);
+                        try {
+                            queue.offer(i);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
         );
-        Thread consomer = new Thread(
+        Thread consumer = new Thread(
                 () -> {
                     while (!queue.isEmpty() || !Thread.currentThread().isInterrupted()) {
-                        list.add(queue.poll());
+                        try {
+                            list.add(queue.poll());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-
         );
         producer.start();
-        consomer.start();
+        consumer.start();
         producer.join();
-        consomer.interrupt();
-        consomer.join();
+        consumer.interrupt();
+        consumer.join();
 
         assertThat(list, is(Arrays.asList(0, 1, 2, 3, 4, 5)));
     }
