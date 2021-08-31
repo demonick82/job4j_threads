@@ -28,8 +28,8 @@ public class ParallelSearchIndex<T> extends RecursiveTask<Integer> {
             return -1;
         }
         int mid = (to - from) / 2;
-        ParallelSearchIndex<T> leftIndex = new ParallelSearchIndex<>(array, obj, from, mid);
-        ParallelSearchIndex<T> rightIndex = new ParallelSearchIndex<>(array, obj, mid + 1, to);
+        ParallelSearchIndex<T> leftIndex = new ParallelSearchIndex(array, obj, from, mid);
+        ParallelSearchIndex<T> rightIndex = new ParallelSearchIndex(array, obj, mid + 1, to);
         leftIndex.fork();
         rightIndex.fork();
         int left = leftIndex.join();
