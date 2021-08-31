@@ -46,7 +46,7 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int[] array = {12, 93, 6, 8, 9, 1,10,5,1};
+        int[] array = {12, 93, 6, 8, 9, 1, 10, 5, 1};
         Arrays.stream(MergeSort.sort(array)).forEach(System.out::println);
     }
 

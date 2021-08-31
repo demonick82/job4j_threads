@@ -34,13 +34,14 @@ public class ParallelMergeSort extends RecursiveTask<int[]> {
         int[] right = rightSort.join();
         return MergeSort.merge(left, right);
     }
+
     public static int[] sort(int[] array) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         return forkJoinPool.invoke(new ParallelMergeSort(array, 0, array.length - 1));
     }
 
     public static void main(String[] args) {
-        int[] array = {12, 93, 6, 8, 9, 1,10,5,1};
+        int[] array = {12, 93, 6, 8, 9, 1, 10, 5, 1};
         Arrays.stream(ParallelMergeSort.sort(array)).forEach(System.out::println);
     }
 }
