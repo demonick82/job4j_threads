@@ -21,7 +21,7 @@ public class RolColSumTest {
         sums3.setColSum(18);
         sums3.setRowSum(24);
         RolColSum.Sums[] expected = {sums1, sums2, sums3};
-        assertArrayEquals(RolColSum.sum(matrix),(expected));
+        assertArrayEquals(RolColSum.sum(matrix), (expected));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class RolColSumTest {
         sums3.setColSum(18);
         sums3.setRowSum(24);
         RolColSum.Sums[] expected = {sums1, sums2, sums3};
-        assertArrayEquals(RolColSum.asyncSum(matrix),(expected));
+        assertArrayEquals(RolColSum.asyncSum(matrix), (expected));
 
     }
 }
